@@ -2,10 +2,11 @@
   "name": "hustlegpt",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "postinstall": "chmod +x node_modules/.bin/vite"
+}
+,
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
