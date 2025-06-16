@@ -1,0 +1,67 @@
+import React, { useState } from "react";
+
+const platforms = ["Instagram","LinkedIn","Twitter","Email"];
+const tones = ["Casual","Friendly","Professional"];
+
+export default function DMGenerator() {
+  const [platform, setPlatform] = useState(platforms[0]);
+  const [name, setName] = useState("");
+  const [niche, setNiche] = useState("");
+  const [skill, setSkill] = useState("");
+  const [tone, setTone] = useState(tones[0]);
+  const [result, setResult] = useState("");
+
+  const generate = () => {
+    const intro = `Hi ${name},`;
+    const personalize = `I saw your work in ${niche} and loved it.`;
+    const pitch = `I'm a freelance ${skill} and help people in ${niche} improve their results.`;
+    const cta = `Would you be open to discussing a quick idea?`;
+
+    let toneRemark =
+      tone === "Friendly"
+        ? "😊"
+        : tone === "Casual"
+        ? "Hey there!"
+        : "";
+
+    setResult(
+      [
+        intro,
+        toneRemark,
+        personalize,
+        pitch,
+        cta,
+        "Thanks,\n[Your Name]",
+      ]
+        .filter(Boolean)
+        .join("\n\n")
+    );
+  };
+
+  const copyAll = () => {
+    if (result) navigator.clipboard.writeText(result);
+  };
+
+  return (
+    <div className="p-4 rounded shadow bg-white">
+      <h2 className="text-xl font-semibold mb-4">Client DM Generator</h2>
+      <select value={platform} onChange={e => setPlatform(e.target.value)} className="border mb-2 p-2 w-full">
+        {platforms.map(p => <option key={p}>{p}</option>)}
+      </select>
+      <input className="border mb-2 p-2 w-full" value={name} onChange={e => setName(e.target.value)} placeholder="Recipient Name" />
+      <input className="border mb-2 p-2 w-full" value={niche} onChange={e => setNiche(e.target.value)} placeholder="Their Niche / Business" />
+      <input className="border mb-2 p-2 w-full" value={skill} onChange={e => setSkill(e.target.value)} placeholder="Your Skill (e.g. Video Editing)" />
+      <select value={tone} onChange={e => setTone(e.target.value)} className="border mb-2 p-2 w-full">
+        {tones.map(t => <option key={t}>{t}</option>)}
+      </select>
+      <button onClick={generate} className="bg-blue-500 text-white p-2 w-full mt-2">Generate DM</button>
+
+      { result && (
+        <div className="mt-4">
+          <textarea readOnly className="border p-2 w-full h-32" value={result} />
+          <button onClick={copyAll} className="bg-green-500 text-white p-2 w-full mt-2">Copy to Clipboard</button>
+        </div>
+      )}
+    </div>
+  );
+}
