@@ -2,9 +2,10 @@
   "name": "mr-earner",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
+    "prebuild": "chmod +x node_modules/.bin/vite || true",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev": "vite"
   },
   "dependencies": {
     "react": "^18.2.0",
